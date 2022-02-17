@@ -135,11 +135,11 @@ const remainingAmmout=document.getElementById('remaining-ammout');
 if(incomeInputValue>0){
 if(incomeInputValue<(incomeInputValue*(saveInputValue/100))){
 savingsAmmout.innerText='you have not enough balance for savings';  
-remainingAmmout.innerText=(incomeInputValue*(saveInputValue/100))- incomeInputValue; 
+remainingAmmout.innerText=((incomeInputValue*(saveInputValue/100))- incomeInputValue).toFixed(2); 
 }
 else{
-savingsAmmout.innerText=incomeInputValue*(saveInputValue/100);  
-remainingAmmout.innerText=incomeInputValue-(incomeInputValue*(saveInputValue/100));
+savingsAmmout.innerText=(incomeInputValue*(saveInputValue/100)).toFixed(2);  
+remainingAmmout.innerText=(incomeInputValue-(incomeInputValue*(saveInputValue/100))).toFixed(2);
 IncomeFunction('income-input','income-text','income-invalid',' ');
 }
 }
@@ -150,16 +150,18 @@ remainingAmmout.innerText=balanceAmmountValue;
 IncomeFunction('income-input','income-text','income-invalid',' ');   
 }
 else{
-savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100) ;                
-remainingAmmout.innerText=balanceAmmountValue-(incomeAmmoutValue*(saveInputValue/100));
+savingsAmmout.innerText=(incomeAmmoutValue*(saveInputValue/100)).toFixed(2) ;                
+remainingAmmout.innerText=(balanceAmmountValue-(incomeAmmoutValue*(saveInputValue/100))).toFixed(2);
 IncomeFunction('income-input','income-text','income-invalid',' ');
 }
 }
 else if(incomeAmmoutValue>0){
-savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100);                 
-remainingAmmout.innerText=incomeAmmoutValue-(incomeAmmoutValue*(saveInputValue/100))
+savingsAmmout.innerText=(incomeAmmoutValue*(saveInputValue/100)).toFixed(2);                 
+remainingAmmout.innerText=(incomeAmmoutValue-(incomeAmmoutValue*(saveInputValue/100))).toFixed(2);
 IncomeFunction('income-input','income-text','income-invalid','');
 }
+window.location.reload(15000);
+
 })
 
 
