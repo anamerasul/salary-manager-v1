@@ -1,6 +1,5 @@
 // income input function with handling error
 function IncomeFunction(inputId,incometextID,incomeinvalidID,message){
-
         const incomeInput=document.getElementById(inputId);
         const incomeInputValueText=incomeInput.value;
         const incomeInputValue=parseFloat(incomeInputValueText);
@@ -17,6 +16,8 @@ function IncomeFunction(inputId,incometextID,incomeinvalidID,message){
                         incomeInput.value='';
                 
         }
+
+        incomeInput.value='';
 
 }
 
@@ -130,10 +131,34 @@ function calculation(){
 
         const expenseAmmount=document.getElementById('expense-ammout');
         const balanceAmmout=document.getElementById('balance-ammout');
-        // balanceAmmout.innerText=incomeInputValue-totalExpenses;        
-       if(totalExpenses>incomeInputValue){
+        // balanceAmmout.innerText=incomeInputValue-totalExpenses;     
+        
+        if(incomeInputValue>=0 && ExpensefoodInputValue>=0 &&ExpenseRentInputValue>=0 &&ExpenseClothInputValue>=0 ){
+                // expenseAmmount.innerText=totalExpenses;
+                // balanceAmmout.innerText=incomeInputValue-totalExpenses; 
+                expensevalidation('food-input','food-input-worng','');
+                expensevalidation('rent-input','rent-input-worng','');
+                expensevalidation('cloth-input','cloth-input-worng','');
+                IncomeFunction('income-input','income-text','income-invalid','');
+
+                if(totalExpenses>incomeInputValue ){
+                        expenseAmmount.innerText='you have not enough balance'
+                        balanceAmmout.innerText=incomeInputValue;
+                
+                       }
+
+                       else{
+                        expenseAmmount.innerText=totalExpenses;
+                        balanceAmmout.innerText=incomeInputValue-totalExpenses;
+                       }
+
+                
+        }
+
+        
+       else if(totalExpenses>incomeAmmouttextvalue ){
         expenseAmmount.innerText='you have not enough balance'
-        balanceAmmout.innerText=incomeInputValue;
+        balanceAmmout.innerText=incomeAmmouttextvalue;
 
        }
 
@@ -151,9 +176,11 @@ function calculation(){
 
        }
 
-         else{
-                expenseAmmount.innerText=totalExpenses;
-                balanceAmmout.innerText=incomeAmmouttextvalue-totalExpenses;
+
+
+         else if(incomeAmmouttextvalue>0){
+                expenseAmmount.innerText=0;
+                balanceAmmout.innerText=incomeAmmouttextvalue-0;
 
         
         }
@@ -236,14 +263,17 @@ document.getElementById('save-btn').addEventListener('click' ,function(e){
                 if(incomeInputValue<(incomeInputValue*(saveInputValue/100))){
                         savingsAmmout.innerText='you have not enough balance for savings';  
                 
-                        remainingAmmout.innerText=(incomeInputValue*(saveInputValue/100))- incomeInputValue;      
+                        remainingAmmout.innerText=(incomeInputValue*(saveInputValue/100))- incomeInputValue; 
+                        
+                        // IncomeFunction('income-input','income-text','income-invalid',' ');
 
                 }
                 else{
 
                 savingsAmmout.innerText=incomeInputValue*(saveInputValue/100);  
                 
-                remainingAmmout.innerText=incomeInputValue-(incomeInputValue*(saveInputValue/100))
+                remainingAmmout.innerText=incomeInputValue-(incomeInputValue*(saveInputValue/100));
+                IncomeFunction('income-input','income-text','income-invalid',' ');
                 }
         }
 
@@ -251,14 +281,17 @@ document.getElementById('save-btn').addEventListener('click' ,function(e){
 
                 if(balanceAmmountValue<(incomeAmmoutValue*(saveInputValue/100))){
                         savingsAmmout.innerText='you do not have enough balance for saving'
-                        remainingAmmout.innerText=balanceAmmountValue;    
+                        remainingAmmout.innerText=balanceAmmountValue; 
+                        IncomeFunction('income-input','income-text','income-invalid',' ');   
                 }
                 else{
-                savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100) 
+                savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100) ;
 
 
                 
-                remainingAmmout.innerText=balanceAmmountValue-(incomeAmmoutValue*(saveInputValue/100))
+                remainingAmmout.innerText=balanceAmmountValue-(incomeAmmoutValue*(saveInputValue/100));
+
+                IncomeFunction('income-input','income-text','income-invalid',' ');
                 }
         }
 
@@ -269,6 +302,8 @@ document.getElementById('save-btn').addEventListener('click' ,function(e){
 
                 
                 remainingAmmout.innerText=incomeAmmoutValue-(incomeAmmoutValue*(saveInputValue/100))
+
+                IncomeFunction('income-input','income-text','income-invalid','');
         }
 
         // else if(saveInputValue<0){
