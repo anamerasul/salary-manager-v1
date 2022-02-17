@@ -77,7 +77,7 @@ return false;
 }
 }
 // calculation of income and expenss function
-function calculation(){
+function calculation(expenseAmoutTd,balanceAmoutId,message,remainingAmoutId){
 
 const incomeInputValue = IncomeFunction('income-input','income-text','income-invalid','please use a number as positve');
 const ExpensefoodInputValue= expensevalidation('food-input','food-input-worng','please use a number as positve');
@@ -86,15 +86,15 @@ const ExpenseClothInputValue=  expensevalidation('cloth-input','cloth-input-worn
 const remainingvalue=remainingAmmoutFunction();
 const incomeAmmouttextvalue=incomeAmmountFunction();
 const totalExpenses=ExpenseClothInputValue+ExpensefoodInputValue+ExpenseRentInputValue;
-const expenseAmmount=document.getElementById('expense-ammout');
-const balanceAmmout=document.getElementById('balance-ammout');     
+const expenseAmmount=document.getElementById(expenseAmoutTd);
+const balanceAmmout=document.getElementById(balanceAmoutId);     
 if(incomeInputValue>=0 && ExpensefoodInputValue>=0 &&ExpenseRentInputValue>=0 &&ExpenseClothInputValue>=0 ){
 expensevalidation('food-input','food-input-worng','');
 expensevalidation('rent-input','rent-input-worng','');
 expensevalidation('cloth-input','cloth-input-worng','');
 IncomeFunction('income-input','income-text','income-invalid','');
 if(totalExpenses>incomeInputValue ){
-expenseAmmount.innerText='you have not enough balance'
+expenseAmmount.innerText=message;
 balanceAmmout.innerText=incomeInputValue;
 }
 else{
@@ -103,7 +103,7 @@ balanceAmmout.innerText=incomeInputValue-totalExpenses;
 }           
 }
 else if(totalExpenses>incomeAmmouttextvalue ){
-expenseAmmount.innerText='you have not enough balance'
+expenseAmmount.innerText=message;
 balanceAmmout.innerText=incomeAmmouttextvalue;
 }
 else if(remainingvalue>0){
@@ -111,7 +111,7 @@ IncomeFunction('income-input','income-text','income-invalid','');
 expensevalidation('food-input','food-input-worng','');
 expensevalidation('rent-input','rent-input-worng','');
 expensevalidation('cloth-input','cloth-input-worng','');
-document.getElementById('remaining-ammout').innerText=remainingvalue-totalExpenses;
+document.getElementById(remainingAmoutId).innerText=remainingvalue-totalExpenses;
 expenseAmmount.innerText=totalExpenses;
 balanceAmmout.innerText=remainingvalue-totalExpenses;
 }
@@ -123,16 +123,16 @@ balanceAmmout.innerText=incomeAmmouttextvalue-0;
 
 // SavingsOfIncome function
 
-function savingsOfIncome(savingsAmoutId,remainingAmoutId){
+function savingsOfIncome(savingsAmoutId,remainingAmoutId,message){
 const saveInputValue=saveInputFunction();
 const incomeInputValue = IncomeFunction('income-input','income-text','income-invalid','please use a number as positve');
 const incomeAmmoutValue=incomeAmmountFunction();
-const balanceAmmountValue=balanceAmmoutFunction()
+const balanceAmmountValue=balanceAmmoutFunction();
 const savingsAmmout=document.getElementById(savingsAmoutId);
 const remainingAmmout=document.getElementById(remainingAmoutId);
 if(incomeInputValue>0){
 if(incomeInputValue<(incomeInputValue*(saveInputValue/100))){
-savingsAmmout.innerText='you have not enough balance for savings';  
+savingsAmmout.innerText=message;  
 remainingAmmout.innerText=((incomeInputValue*(saveInputValue/100))- incomeInputValue).toFixed(2); 
 }
 else{
@@ -143,7 +143,7 @@ IncomeFunction('income-input','income-text','income-invalid',' ');
 }
 else if(balanceAmmountValue>0){
 if(balanceAmmountValue<(incomeAmmoutValue*(saveInputValue/100))){
-savingsAmmout.innerText='you do not have enough balance for saving'
+savingsAmmout.innerText=message;
 remainingAmmout.innerText=balanceAmmountValue; 
 IncomeFunction('income-input','income-text','income-invalid',' ');   
 }
@@ -161,9 +161,9 @@ IncomeFunction('income-input','income-text','income-invalid','');
 }
 // handle calculate button
 document.getElementById('calculate-btn').addEventListener('click', function(e){
-        calculation();
+        calculation('expense-ammout','balance-ammout','you have not enough balance','remaining-ammout');
 })
 // handle save button
 document.getElementById('save-btn').addEventListener('click' ,function(e){
-        savingsOfIncome('savings-ammout','remaining-ammout');
+        savingsOfIncome('savings-ammout','remaining-ammout','you have not enough balance for savings');
 })
