@@ -124,14 +124,17 @@ balanceAmmout.innerText=incomeAmmouttextvalue-0;
 document.getElementById('calculate-btn').addEventListener('click', function(e){
         calculation();
 })
-// handle save  button
-document.getElementById('save-btn').addEventListener('click' ,function(e){
+
+
+// SavingsOfIncome function
+
+function savingsOfIncome(savingsAmoutId,remainingAmoutId){
 const saveInputValue=saveInputFunction();
 const incomeInputValue = IncomeFunction('income-input','income-text','income-invalid','please use a number as positve');
 const incomeAmmoutValue=incomeAmmountFunction();
 const balanceAmmountValue=balanceAmmoutFunction()
-const savingsAmmout=document.getElementById('savings-ammout');
-const remainingAmmout=document.getElementById('remaining-ammout');
+const savingsAmmout=document.getElementById(savingsAmoutId);
+const remainingAmmout=document.getElementById(remainingAmoutId);
 if(incomeInputValue>0){
 if(incomeInputValue<(incomeInputValue*(saveInputValue/100))){
 savingsAmmout.innerText='you have not enough balance for savings';  
@@ -160,8 +163,50 @@ savingsAmmout.innerText=(incomeAmmoutValue*(saveInputValue/100)).toFixed(2);
 remainingAmmout.innerText=(incomeAmmoutValue-(incomeAmmoutValue*(saveInputValue/100))).toFixed(2);
 IncomeFunction('income-input','income-text','income-invalid','');
 }
-window.location.reload(15000);
 
+
+
+}
+
+// handle save  button
+// document.getElementById('save-btn').addEventListener('click' ,function(e){
+// const saveInputValue=saveInputFunction();
+// const incomeInputValue = IncomeFunction('income-input','income-text','income-invalid','please use a number as positve');
+// const incomeAmmoutValue=incomeAmmountFunction();
+// const balanceAmmountValue=balanceAmmoutFunction()
+// const savingsAmmout=document.getElementById('savings-ammout');
+// const remainingAmmout=document.getElementById('remaining-ammout');
+// if(incomeInputValue>0){
+// if(incomeInputValue<(incomeInputValue*(saveInputValue/100))){
+// savingsAmmout.innerText='you have not enough balance for savings';  
+// remainingAmmout.innerText=((incomeInputValue*(saveInputValue/100))- incomeInputValue).toFixed(2); 
+// }
+// else{
+// savingsAmmout.innerText=(incomeInputValue*(saveInputValue/100)).toFixed(2);  
+// remainingAmmout.innerText=(incomeInputValue-(incomeInputValue*(saveInputValue/100))).toFixed(2);
+// IncomeFunction('income-input','income-text','income-invalid',' ');
+// }
+// }
+// else if(balanceAmmountValue>0){
+// if(balanceAmmountValue<(incomeAmmoutValue*(saveInputValue/100))){
+// savingsAmmout.innerText='you do not have enough balance for saving'
+// remainingAmmout.innerText=balanceAmmountValue; 
+// IncomeFunction('income-input','income-text','income-invalid',' ');   
+// }
+// else{
+// savingsAmmout.innerText=(incomeAmmoutValue*(saveInputValue/100)).toFixed(2) ;                
+// remainingAmmout.innerText=(balanceAmmountValue-(incomeAmmoutValue*(saveInputValue/100))).toFixed(2);
+// IncomeFunction('income-input','income-text','income-invalid',' ');
+// }
+// }
+// else if(incomeAmmoutValue>0){
+// savingsAmmout.innerText=(incomeAmmoutValue*(saveInputValue/100)).toFixed(2);                 
+// remainingAmmout.innerText=(incomeAmmoutValue-(incomeAmmoutValue*(saveInputValue/100))).toFixed(2);
+// IncomeFunction('income-input','income-text','income-invalid','');
+// }
+// })
+
+// handle save button
+document.getElementById('save-btn').addEventListener('click' ,function(e){
+        savingsOfIncome('savings-ammout','remaining-ammout');
 })
-
-
