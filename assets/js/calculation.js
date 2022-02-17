@@ -48,11 +48,11 @@ function expensevalidation(inputID,inputmessageId,message){
 function calculation(){
 
         const incomeInputValue = IncomeFunction('income-input','income-text','income-invalid','please use a number as positve');
-        const ExpensefoodInputValue= expensevalidation('food-input','food-input-worng','please use a number as positve')
-        const ExpenseRentInputValue= expensevalidation('rent-input','rent-input-worng','please use a number as positve')
-        const ExpenseClothInputValue=  expensevalidation('cloth-input','cloth-input-worng','please use a number as positve')
+        const ExpensefoodInputValue= expensevalidation('food-input','food-input-worng','please use a number as positve');
+        const ExpenseRentInputValue= expensevalidation('rent-input','rent-input-worng','please use a number as positve');
+        const ExpenseClothInputValue=  expensevalidation('cloth-input','cloth-input-worng','please use a number as positve');
 
-
+        const remainingvalue=remainingAmmoutFunction()
 
         // document.getElementById('income-text').innerHTML=`<span>your income is</span><span id="income-ammout"> ${incomeInputValue}</span>`
 
@@ -83,6 +83,20 @@ function calculation(){
        if(totalExpenses>incomeInputValue){
         expenseAmmount.innerText='you have not enough balance'
         balanceAmmout.innerText=incomeInputValue;
+
+       }
+
+       else if(remainingvalue>0){
+
+        IncomeFunction('income-input','income-text','income-invalid','');
+        expensevalidation('food-input','food-input-worng','');
+        expensevalidation('rent-input','rent-input-worng','');
+        expensevalidation('cloth-input','cloth-input-worng','');
+
+        document.getElementById('remaining-ammout').innerText=remainingvalue-totalExpenses;
+         expenseAmmount.innerText=totalExpenses;
+         balanceAmmout.innerText=remainingvalue-totalExpenses;
+
 
        }
 
@@ -138,6 +152,50 @@ document.getElementById('calculate-btn').addEventListener('click', function(e){
         calculation();
 
 })
+// saveInputFunction
+function saveInputFunction(){
+        const saveInput =document.getElementById('save-input');
+
+        const saveInputValueText=saveInput.value;
+        const saveInputValue=parseFloat(saveInputValueText);
+
+        if (saveInputValue>=0){
+                saveInput.value='';
+                return saveInputValue;
+        }
+
+        else{
+                document.getElementById('save-input-error').innerText='please type a positive value'
+        }
+}
+
+
+function  incomeAmmountFunction(){
+        const incomeAmmout=document.getElementById('income-ammout');
+        const incomeAmmoutText=incomeAmmout.innerText;
+        const incomeAmmoutValue=parseFloat(incomeAmmoutText);
+        
+        if(incomeAmmoutValue>0){
+                return incomeAmmoutValue;
+        }
+
+        else{
+                return false;
+        }
+}
+
+function  remainingAmmoutFunction(){
+        const remainingAmmout=document.getElementById('remaining-ammout');
+        const remainingvaluetext=remainingAmmout.innerText;
+        const remainingvalue=parseFloat(remainingvaluetext);
+
+        if(remainingvalue>0){
+
+
+                return remainingvalue;
+        }
+
+}
 
 
 
@@ -146,20 +204,20 @@ document.getElementById('calculate-btn').addEventListener('click', function(e){
 
 // handle save button
 document.getElementById('save-btn').addEventListener('click' ,function(e){
-        const saveInput =document.getElementById('save-input');
+        // const saveInput =document.getElementById('save-input');
 
-        const saveInputValueText=saveInput.value;
-        const saveInputValue=parseFloat(saveInputValueText);
+        // const saveInputValueText=saveInput.value;
+        // const saveInputValue=parseFloat(saveInputValueText);
+        const saveInputValue=saveInputFunction();
 
-        const incomeAmmout=document.getElementById('income-ammout');
-        const incomeAmmoutText=incomeAmmout.innerText;
-        const incomeAmmoutValue=parseFloat(incomeAmmoutText);
+        const incomeInputValue = IncomeFunction('income-input','income-text','income-invalid','please use a number as positve');
+
+        // const incomeAmmout=document.getElementById('income-ammout');
+        // const incomeAmmoutText=incomeAmmout.innerText;
+        // const incomeAmmoutValue=parseFloat(incomeAmmoutText);
+        const incomeAmmoutValue=incomeAmmountFunction();
 
         const savingsAmmout=document.getElementById('savings-ammout');
-
-
-
-        savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100);
 
         const balanceAmmout=document.getElementById('balance-ammout');
 
@@ -168,11 +226,53 @@ document.getElementById('save-btn').addEventListener('click' ,function(e){
 
         const remainingAmmout=document.getElementById('remaining-ammout');
 
-        remainingAmmout.innerText=balanceAmmountValue-parseFloat(savingsAmmout.innerText);
+        if(incomeInputValue>0){
 
-        incomeInput.value='';
+                if(incomeInputValue<(incomeInputValue*(saveInputValue/100))){
+                        savingsAmmout.innerText='you have not enough balance for savings';  
+                
+                        remainingAmmout.innerText=(incomeInputValue*(saveInputValue/100))- incomeInputValue;      
 
-        saveInput.value='';
+                }
+                else{
+
+                savingsAmmout.innerText=incomeInputValue*(saveInputValue/100);  
+                
+                remainingAmmout.innerText=incomeInputValue-(incomeInputValue*(saveInputValue/100))
+                }
+        }
+
+        else if(incomeAmmoutValue>0){
+
+                if(balanceAmmountValue<(incomeAmmoutValue*(saveInputValue/100))){
+                        savingsAmmout.innerText='you do not have enough balance for saving'
+                        remainingAmmout.innerText=balanceAmmountValue;    
+                }
+                else{
+                savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100) 
+
+
+                
+                remainingAmmout.innerText=incomeAmmoutValue-(incomeAmmoutValue*(saveInputValue/100))
+                }
+        }
+
+
+
+        // savingsAmmout.innerText=incomeAmmoutValue*(saveInputValue/100);
+
+        // const balanceAmmout=document.getElementById('balance-ammout');
+
+        // const balanceAmmouttext=balanceAmmout.innerText;
+        // const balanceAmmountValue=parseFloat(balanceAmmouttext);
+
+        // const remainingAmmout=document.getElementById('remaining-ammout');
+
+        // remainingAmmout.innerText=balanceAmmountValue-parseFloat(savingsAmmout.innerText);
+
+        // incomeInput.value='';
+
+       
 
 
 
